@@ -1,0 +1,337 @@
+@import './_core';
+
+.drop{
+
+    position: relative;
+    user-select: none;
+
+    width: fit-content;
+
+    & > .drop_list_button{
+
+        width: 106px;
+    
+        background-color: white;
+        color: #1C1C1C;
+        font-family: 'Nunito';
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 16px; /* 114.286% */
+        letter-spacing: 0.28px;
+    
+        padding: 12px 40px 12px 16px;
+    
+        position: relative;
+    
+        border-radius: 8px;
+        border: 1px solid var(--btn-secondary-default, #E8E8E8);
+
+        cursor: pointer;
+
+        transition: all .15s ease-in;
+    
+        &:hover{
+            opacity: .75;
+        }
+    
+        &:after{
+            position: absolute;
+            top: 12px;
+            right: 16px;
+    
+            @include bg-img(url('../images/Arrow-down.svg'), cover);
+            @include size(16px, 16px);
+            content: '';
+        }
+    
+        &.active{
+            background-color: #EFEFEF;
+        }
+    
+        &.active:after{
+            transform: rotateZ(180deg);
+        }
+    }
+    
+    
+    & > .drop_list{
+        border-radius: 4px;
+        background: var(--bg-popup-default, #FFF);
+        /* Shadow */
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.20);
+        width: 212px;
+        z-index: 100000;
+    
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+
+
+        position: absolute;
+        top: 52px;
+        left: -53px;
+
+        height: 0;
+        overflow: hidden;
+        
+        transition: height .3s ease-in-out;
+
+        &.active{
+            height: 192px;
+        }
+        
+        & > li {
+    
+            color: var(--txt-primary, #1C1C1C);
+            font-feature-settings: 'cv11' on, 'cv01' on, 'ss01' on;
+            font-family: 'Nunito';
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 24px; /* 171.429% */
+    
+    
+            padding: 12px 0px;
+    
+            text-align: center;
+            transition: all 0.15s ease;
+
+            &:hover {
+                background-color: #EFF2FF;
+                cursor: pointer;
+            }
+
+            &.active {
+                @include bg-img(url('../images/Check.svg'), auto, 9%);
+                transition: none;
+                color: #244af3;
+            }
+
+        }
+    
+    }
+}
+
+
+.main_control{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+
+    & > .create_button{
+        width: fit-content;
+    
+        background-color: white;
+        color: #1C1C1C;
+        font-family: 'Nunito';
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 16px; /* 114.286% */
+        letter-spacing: 0.28px;
+        text-align: center;
+    
+        padding: 12px 16px;
+    
+        position: relative;
+    
+        border-radius: 8px;
+        border: 1px solid var(--btn-secondary-default, #E8E8E8);
+
+        cursor: pointer;
+
+        transition: all .15s ease-in;
+
+
+        background-color: #5271f9;
+
+        color: white;
+    
+        &:hover{
+            opacity: .75;
+        }
+    }
+}
+
+
+
+.files_item{
+    width: 200px;
+    height: fit-content;
+    padding: 12px 16px;
+
+    border: 1px solid rgb(156, 156, 156);
+    border-radius: 12px;
+    background-color: #ffffff;
+    color: #000000;
+    position: relative;
+
+
+    & > img{
+        width: 44px;
+        height: 44px;
+    }
+
+    & > .button{
+        position: absolute;
+        right: 15px;
+        top: 10px;
+        height: 44px;
+        width: 44px;
+        text-align: left;
+        @include bg-img(url('../images/delete.svg'), 70%, center);
+        border: none;
+        border-radius: 10px;
+        background-color:rgba(255, 255, 255, 0.925);
+
+        cursor: pointer;
+    }
+
+}
+
+.burger_btn{
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    @include bg-img(url('../images/burger_menu.svg'), 50%);
+    @include size(50px, 40px);
+    background-color: rgb(255, 255, 255);
+    border-radius: 30px;
+    transition: all .4s ease-in-out;
+
+    &.active{
+        left: 120px;
+        @include bg-img(url('../images/krestik.png'), 50%);
+    }
+}
+
+.notification_btn{
+    width: 100%;
+    height: 100%;
+    border-radius: 30px;
+    background-color: white;
+    // @include bg-img(url('../images/notification.png'), 50%);
+    cursor: pointer;
+
+    &> img{
+        @include size(30px, 30px);
+        padding-top: 5px;
+    }
+}
+
+.notification_content{
+    width: 300px;
+    height: 0px;
+    position: absolute;
+    bottom: 60px;
+    left: 0;
+
+    transition: all .4s linear;
+    border-radius: 7px;
+
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+
+    background-color: white;
+    box-shadow: 0px 0px 14px rgba(99, 96, 96, 0.713);
+
+    opacity: 0;
+
+    &.active{
+        height: 300px;
+        opacity: 1;
+    }    
+
+    & > .notification_title {
+        text-align: center;
+        font-family: sans-serif;
+
+        margin: 0;
+        padding: 14px 0px;
+
+        font-size: 16px;
+        line-height: 20px;
+    }
+
+    & > .notifications_received{
+        list-style-type: none;
+        padding: 0;
+
+        overflow: auto;
+        height: 100%;
+
+        margin: 0;
+        padding: 0;
+        
+        
+        &>.no_notification{
+            text-align: center;
+            border: none;
+            @include bg-img(url('../images/sad.png'), 5%, 72%);
+            padding: 0;
+        }
+        
+
+        & > li{
+            font-family: sans-serif;
+            display: block;
+            padding: 12px;
+            cursor: pointer;
+            transition: all .3s ease;
+            position: relative;
+
+            & + li{
+                border-top: 1px solid rgb(122, 122, 122);
+            }
+
+            &:hover{
+                background-color: #609eee;
+                color: white;
+            }
+        }
+    }
+}
+
+
+.notification_show--body{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-radius: 7px;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    padding: 0;
+
+    user-select: none;
+
+    z-index: 10000;
+
+    &>.notification_item{
+        @include size(180px, 40px);
+        @include font(20px, 40px, 400);
+        list-style-type: none;
+        text-align: left;
+        padding-left: 20px;
+        border-radius: 6px;
+        transition: all .3s ease;
+        box-shadow: 0px 0px 5px rgba(99, 96, 96, 0.713);
+        cursor: pointer;
+        position: relative;
+
+        background-color: white;
+
+        &> img{
+            width:30px;
+            float: right;
+            position: absolute;
+            top: 5px;
+            right: 10px;
+        }
+        
+    }
+}
