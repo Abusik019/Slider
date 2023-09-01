@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="./src/css/app.css">
+        <title>Document</title>
+        <script src="./node_modules/moment/moment.js"></script>
+    </head>
+    <body>
+        <!-- <aside class="aside" id="aside">
+            <button class="burger_btn" id="burger_btn"></button>
+
+            <div class="aside_content">
+                <h1 class="aside_header">Menu</h1>
+                <ul class="aside_list">
+                    <li class="aside_item">Account</li>
+                    <li class="aside_item">Wallet</li>
+                    <li class="aside_item">History</li>
+                    <li class="aside_item">Settings</li>
+                    <li class="aside_item">Logout</li>
+                </ul>
+            </div>
+        </aside> -->
+
+        <main class="main">
+            <div class="main_content">
+                <div class="main_control">
+                    <div class="drop">
+                        <button class="drop_list_button" id="sort_btn">Sort by</button>
+                        <ul id="drop_list" class="drop_list"></ul>
+                    </div>
+                    <div class="create_button" id="create_button">
+                        Create notification
+                    </div>
+                </div>
+        
+        
+                <ul class="files">
+        
+                </ul>
+            </div>
+            <div class="notification_container">
+                <button class="notification_btn" id="notification_btn"><img alt=""></button>
+                <section class="notification_content" id="notification_content">
+                    <h1 class="notification_title">Your notifications</h1>
+                    <ul class="notifications_received" id="notifications_received">
+
+                    </ul>
+                </section>
+            </div>
+            
+
+            <ul class="notification_show--body" id="notification_show--body">
+                <img src="" alt="">
+            </ul>
+
+        </main>
+
+<!-- 
+        <script type="module">
+
+            // function loadScript(src, callback){
+            //     const script = document.createElement('script');
+            //     script.src = src;
+
+            //     script.onload = () => callback(null, script);
+            //     script.onerror = () => callback(new Error('Не удалось загрузить скрипт ' + src), null)
+
+            //     document.body.appendChild(script);
+            // }
+
+            // loadScript('./script_1.js', (error, src) => {
+            //     if(error){
+            //         alert(error.message)
+            //         return;
+            //     }
+
+            //     alert('All is ok!')
+            // })
+
+
+            // Написать функцию, которая принимает объект и call back, функция получает все значения объектов и строит из них массив через Object.values()
+            // Если в каком-либо элементе есть null, то вызываем callback и выводим сообщение ошибки. Если ошибки нет, передаем полученный массив и выводим его в консоль через 1 элементе(только неченые)
+
+            // const obj = {
+            //     a: 1,
+            //     b: 2,
+            //     c: null
+            // }
+
+            // function objToArray(obj, callback){
+            //     const array = Object.values(obj)
+            //     if(array.includes(null)){
+            //         return callback(new Error('В массиве есть null'), null)
+            //     }
+            //     return callback(null, array);
+            // }
+
+            // const arr = objToArray(obj, (err, res) => {
+            //     if(err){
+            //         alert(err.message);
+            //         return err;
+            //     }
+            //     return res.filter((el, index) => index % 2 === 0)
+            // })
+
+            // console.log(arr)
+
+
+
+            async function axios(path, callback){
+                setTimeout(() => {
+                    const answer = callback(null, 'Server code 200');
+                    console.log(answer);
+                    
+                    return callback(null, answer)
+                }, 2000);
+            }
+
+            const res = await axios('/home', (err, res) => {
+                if(err){
+                    alert(err.message);
+                    return err;
+                }
+
+                return res;
+            })
+
+
+        </script>  -->
+
+        <script type="module" src="./src/scripts/index.js"></script>
+    </body>
+</html>
