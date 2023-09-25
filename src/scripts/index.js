@@ -1,245 +1,100 @@
-import {outsideClick} from "../utils/outsideClick.js";
-import {generateDropdownList} from "../utils/generateDropdownList.js";
-import {handleBtnClick} from "../utils/handleBtnClick.js";
-import { dropdownMenu } from "../utils/dropdownMenu.js";
-import show_notification from "../utils/notification.js";
-import { generateNotificationList } from "../utils/generateNotifList.js";
+class Converter {
+  constructor(startCurrency = 'USD', endCurrency = 'RUB') {
+    this.startCurrency = localStorage.getItem('startCurrency') || startCurrency;
+    this.endCurrency = localStorage.getItem('endCurrency') || endCurrency;
 
-const button = document.getElementById('sort_btn');
-const list = document.getElementById('drop_list');
-const files = document.querySelector('.files');
-const burgerBtn = document.getElementById('burger_btn');
-const notification_btn = document.getElementById('notification_btn');
-const notifications_received = document.getElementById('notifications_received');
-const createNotification = document.getElementById('create_button');
+    this.lastRequestHour = localStorage.getItem('lastRequestHour') || -1;
 
-const array = [
-  {
-    name: 'File 2',
-    type: 'pdf',
-    date: new Date()
-  },
-  {
-    name: 'File 3',
-    type: 'word',
-    date: new Date()
-  },
-  {
-    name: 'File 4',
-    type: 'pdf',
-    date: new Date()
-  },
-  {
-    name: 'File 5',
-    type: 'txt',
-    date: new Date()
-  },
-  {
-    name: 'File 6',
-    type: 'word',
-    date: new Date()
-  },
-  {
-    name: 'File 7',
-    type: 'txt',
-    date: new Date('Thu Aug 15 2023 09:22:44 GMT+0300 (Москва, стандартное время)')
-  },
-]
-
-const dropList = [
-  {
-    id: 'none',
-    name: 'No',
-    click: (name) => {
-      alert(name);
-    }
-  },
-  {
-    id: 'name',
-    name: 'Name',
-    click: (name) => {
-      alert(name);
-    }
-  },
-  {
-    id: 'type',
-    name: 'Type',
-    click: (name) => {
-      alert(name);
-    }
-  },
-  {
-    id: 'date',
-    name: 'Date',
-    click: (name) => {
-      alert(name);
-    }
-  },
-]
-
-const notification_array = [
-  {
-    id: '02394',
-    name: 'Ivan',
-    message: 'Where are you, bro?',
-    time: '13:32'
-  },
-  {
-    id: '06536',
-    name: 'Sarah',
-    message: 'Good job.',
-    time: '14:51'
-  },
-  {
-    id: '35546',
-    name: 'Ebay',
-    message: "Buy this phone with 30% discount",
-    time: '14:59'
-  },
-  {
-    id: '53654',
-    name: 'Gale',
-    message: "Let's go for a walk!",
-    time: '17:03'
+    this.data = JSON.parse(localStorage.getItem('data')) || [];
   }
-]
 
-createNotification.addEventListener("click", () => {
-  const newItem = {
-    id: '53654',
-    name: 'Gale',
-    message: "Let's go for a walk!",
-    time: '17:03'
-  }
-  notification_array.push(newItem);
-  generateNotificationList(notifications_received, notification_array);
+  async getData() {
+
+    const currentHour = new Date().getHours();
+    if (currentHour !== +this.lastRequestHour) {
+      const { data: res } = await axios.get('https://www.cbr-xml-daily.ru/daily_json.js');
+      this.data = res;
+      this.lastRequestHour = currentHour;
+
+      localStorage.setItem('lastRequestHour', this.lastRequestHour.toString());
+      localStorage.setItem('data', JSON.stringify(this.data));
 
 
-
-  const showNotifiBody = document.getElementById('notification_show--body');
-  const newLi = document.createElement('li');
-
-  newLi.innerText = newItem.name;
-  newLi.classList.add('notification_item');
-  showNotifiBody.appendChild(newLi);
-
-  let closeImg = document.createElement('img');
-  closeImg.setAttribute('src', '../../src/images/krestik.png');
-  newLi.appendChild(closeImg);
-
-  const timeId = setTimeout(() => { showNotifiBody.removeChild(newLi) }, 5000);
-
-  newLi.addEventListener('click', (e) => {
-
-    console.log(e.target !== closeImg)
-    
-    if(e.target !== closeImg){
-      show_notification(document.getElementById('notification_content'))
+      console.log('Data was gotten!')
+    } else {
+      console.log('Data was already gotten!')
     }
 
-    setTimeout(() => {
-      showNotifiBody.removeChild(newLi);
-      clearTimeout(timeId);
-    }, 250)
+    return this.data;
+  }
+
+  get StartCurrency() {
+    return this.startCurrency;
+  }
+
+  set StartCurrency(value) {
+    localStorage.setItem('startCurrency', value);
+    this.startCurrency = value;
+  }
+
+  get EndCurrency() {
+    return this.endCurrency;
+  }
+
+  set EndCurrency(value) {
+    localStorage.setItem('endCurrency', value);
+    this.endCurrency = value;
+  }
+}
+
+const convert = new Converter(),
+  selects = document.querySelectorAll('.select_my_currency'),
+  inputs = document.querySelectorAll('.quantity_money');
+
+
+console.log(await convert.getData());
+
+selects.forEach((element, index) => {
+  element.addEventListener('change', async (e) => {
+    switch (index) {
+      case 0:
+        convert.StartCurrency = e.target.value;
+
+        const data = await convert.getData();
+        const rate = data?.Valute[convert.startCurrency]?.Value / data?.Valute[convert.startCurrency]?.Nominal;
+
+        inputs[index + 1].value = (+inputs[index].value * rate).toFixed(2);
+        break;
+      case 1:
+        convert.EndCurrency = e.target.value;
+        break;
+      default:
+        alert('Invalid drop select node!')
+    }
+
+    console.log('Start: ' + convert.StartCurrency)
+    console.log('End: ' + convert.EndCurrency)
   })
-
-  // closeImg.addEventListener('click', () => {
-  //   showNotifiBody.removeChild(newLi);
-  //   clearTimeout(timeId);
-  // })
-
-})
-
-
-// Дописать логику открытия панели уведомлений и переход к нажатому уведомлению
-// Добавить к li кнопку удаления уведомления (крестик), при клике на крест только удаляем элемент без открытия уведомлений
-
-window.addEventListener('click', (e) => {
-
-  if (!e.target.closest('.notification_container') && !Array.from(document.querySelectorAll('.notification_item')).includes(e.target)) {
-    console.log('remove class')
-    document.getElementById('notification_content').classList.remove('active');
-  }
-})
-
-generateDropdownList(list, button, array, dropList);
-generateNotificationList(notifications_received, notification_array);
-
-
-button.addEventListener("click", (event) => {
-  handleBtnClick(event, list);
 });
 
-window.addEventListener('click', (e) => {
-  outsideClick(e, list, button)
-})
 
-// burgerBtn.addEventListener('click', (event) => {
-//   dropdownMenu(event.target, document.getElementById('aside'));
-// })
-
-notification_btn.addEventListener('click', () => {
-  show_notification(document.getElementById('notification_content'))
-})
-
-
-
-let currentSortField = null;
-let currentSortDirection = -1;
-
-function sortByPropertyAscending(arr, propName) {
-  return arr.sort((a, b) => {
-    if (a[propName] < b[propName]) return -1;
-    if (a[propName] > b[propName]) return 1;
-    return 0;
-  });
-}
-
-
-function handleDeleteFile(e){
-  const file = e.target.closest('.files_item')
-  file.remove(); 
-}
-
-
-function updateFilesList(array, filter = 'no') {
-
-  files.innerHTML = ''
-
-  if(filter !== 'no'){
-    console.log(filter)
-    array = sortByPropertyAscending(array, filter);
-    console.log(array)
-  } 
-  
-
-
-  setTimeout(() => {
-    for (let file of array) {
-
-      let newLi = document.createElement('li');
-      newLi.classList.add('files_item');
-      newLi.innerHTML = `
-        <img src='${`./src/images/${file.type}.svg`}'/>
-        <p>${file.name}</p>
-        <p>${moment(file.date).zone(-120).format('hh:mm, DD.MM.YYYY')}</p>
-      `;
-  
-  
-      const deleteBtn = document.createElement('button');
-      deleteBtn.textContent = ''
-      deleteBtn.classList.add('button')
-      deleteBtn.addEventListener('click', handleDeleteFile)
-  
-      newLi.appendChild(deleteBtn)
-  
-      files.appendChild(newLi);
+inputs.forEach((element, index) => {
+  element.addEventListener('input', async (e) => {
+    const data = await convert.getData();
+    const rate = data?.Valute[convert.startCurrency]?.Value / data?.Valute[convert.startCurrency]?.Nominal;
+    switch (index) {
+      case 0:
+        inputs[index + 1].value = (+element.value * rate).toFixed(2);
+        break;
+      case 1:
+        inputs[index - 1].value = (+element.value / rate).toFixed(2);
+        break;
+      default:
+        alert('Invalid drop select node!')
     }
-  }, 1000)
 
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  updateFilesList(array);
+    console.log('Start: ' + convert.StartCurrency)
+    console.log('End: ' + convert.EndCurrency)
+  })
 });
 

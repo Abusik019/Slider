@@ -1,102 +1,12 @@
-.files{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-
-    gap: 10px;
-
-    list-style-type: none;
-
-    padding: 10px;
-    margin: 0;
-
-
-
-    box-sizing: border-box;
-    width: 990px;
-
-    margin-top: 40px;
-}
-
-
-.aside{
-    width: 0;
-    height: 100vh;
-
-    position: relative;
-
-    background-color: grey;
-
-    transition: width .4s ease-in-out;
-
-
-    padding-top: 60px;
-    box-sizing: border-box;
-
-
-    & > .aside_content{
-        overflow: hidden;
-        width: 100%;
-
-        & > .aside_header{
-            text-align: center;
-            font-family: sans-serif;
-        }
-    }
-
-
-    &.active{
-        width: 250px;
-
-        & .aside_list{
-            width: 100%;
-            opacity: 1;
-        }
-
-    }
-
-
-    & .aside_list{
-        margin: 0;
-        padding: 0;
-    
-        list-style-type: none;
-    
-        display: flex;
-        flex-direction: column;
-        gap: 14px;
-        align-items: center;
-        justify-content: center;
-    
-    
-        opacity: 0;
-        width: 0;
-        overflow: hidden;
-    
-        transition: all .4s ease-in-out;
-    }
-}
 
 
 body{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     margin: 0;
-    padding: 0;
-
-    padding: 40px;
 }
 
 .main {
     display: flex;
-}
-
-
-.notification_container{
-    position: absolute;
-    left: 40px;
-    bottom: 40px;
-    width: 50px;
-    height: 50px;
+    background-color: #94AFC2;
+    height: 100vh;
+    width: 100%;
 }

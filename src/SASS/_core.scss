@@ -5,10 +5,10 @@
     height: $height;
 }
 
-@mixin font($font-size: 14px, $line-height: 16px, $font-weight: 400, $font-family: 'Roboto') {
+@mixin font($font-size: 14px, $line-height: 16px, $font-weight: 400, $font-family: 'Nunito') {
     font-size: $font-size;
     font-weight: $font-weight;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Nunito', sans-serif;
     line-height: $line-height;
 }
 
