@@ -1,5 +1,4 @@
 ﻿# Hello everyone👋, now I will describe my slider to you.
----
 
 # Image Slider
 
