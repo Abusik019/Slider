@@ -10,38 +10,19 @@
     </head>
     <body>  
         <main class="main">
-            <form class="currency_converter">
-                <h1 class="converter_title">Deposit liquidity</h1>
-                <div class="first_currency">
-                    <div class="first_currency_block">
-                        <h1 class="label_select_currency" for="my_currency">From</h1>
-                        <input class="quantity_money" id="quantity_money" type="number" placeholder="0,00">
-                    </div>
-                    <div class="first_currency_block2">
-                        <select class="select_my_currency" name="my_currency" id="my_currency">
-                            <option value="USD">USD</option>
-                            <option value="EUR">EURO</option>
-                            <option value="GBP">GBP</option>
-                            <option value="CNY">CNY</option>
-                            <option value="CZK">CZK</option>
-                        </select>
-                    </div>
+            <div class="slider">
+                <button id="prev_button">&#60</button>
+                <img id="left-image" src="" alt="">
+                <div class="middle_image">
+                    <h1 id="path-img"></h1>
+                    <img id="slider-image" src="" alt="">
+                    <h2 id="index-img"></h2>
                 </div>
-                <div class="first_currency second_currency">
-                    <div class="first_currency_block">
-                        <h1 class="label_select_currency" for="currency">To</h1>
-                        <input class="quantity_money" id="quantity_rub" type="number" placeholder="0,00">
-                    </div>
-                    <div class="first_currency_block2">
-                        <select class="select_my_currency" name="currency" id="currency">
-                            <option value="rubles">RUB</option>
-                        </select>
-                    </div>
-                </div>
-            </form>
+                <img id="right-image" src="" alt="">
+                <button id="next_button">&#62</button>
+            </div>
         </main>
         
-        <script src="./node_modules/axios/dist/axios.min.js"></script>
         <script type="module" src="./src/scripts/index.js"></script>
     </body>
 </html>

@@ -1,79 +1,40 @@
 @import './_core';
 
-.currency_converter {
-    @include size(400px, 350px);
-    background-color: white;
-    border-radius: 15px;
-    margin: 80px auto 0 auto;
-    padding: 20px;
+.slider{
+    @include size(1800px, 700px);
+    margin: 0 auto;
+    margin-top: 5%;
+    @include flex(space-between);
 
-    &>.converter_title {
-        @include font(24px, 24px, 500);
-        margin: 0;
-        color: #041025;
-    }
+    &>button{
+        @include size(50px, 50px);
+        background-color: #000000;
+        color: white;
+        font-size: 35px;
+        border: none;
+        border-radius: 30px;
 
-    &>.first_currency {
-        @include flex(space-between);
-        @include size(100%, 120px);
-        align-items: center;
-        border-radius: 15px;
-        background-color: #F5FAFC;
-        margin-top: 30px;
-
-        &>.first_currency_block {
-            padding: 10px;
-            height: 80%;
-
-            &>.label_select_currency {
-                @include font(18px, 14px, 400);
-                margin: 0;
-                padding: 5px;
-                color:#5282a1;
-            }
-
-            &>.quantity_money {
-                @include size(250px, 30px);
-                @include font(28px, 28px, 600);
-                background-color: #F5FAFC;
-                border: none;
-                color: #5282a1;
-                padding-top: 20px;
-
-                display: block;
-                // width: 100%;
-
-                &::-webkit-input-placeholder {
-                    color:#5282a1;
-                 }
-            }
-        }
-
-        &>.first_currency_block2 {
-
-            &>.select_my_currency {
-                appearance: none;
-                width: 80px;
-                height: 20px;
-                padding-right: 20px;
-                text-align: center;
-                @include font(18px, 18px, 400);
-                border: none;
-                background-color: #F5FAFC;
-                color: #5282a1;
-
-                &>option{
-                    @include font(14px, 14px, 400);
-                    background-color: #F5FAFC;
-                    border: none;
-                }
-            }
+        &.inactive{
+            pointer-events: none;
+            opacity: 0;
         }
     }
-}
 
-select:active, select:focus, input:active, input:focus{
-    border:none;
-    outline:none;
-    border:transparent;  
+    &>.middle_image{
+
+        &>h1, h2{
+            text-align: center;
+            @include font(36px, 16px, 400);
+        }
+
+        &>img{
+            @include size(800px, 500px);
+        }
+    }
+    
+
+    &>img{
+        width: 20%;
+    }
+
 }

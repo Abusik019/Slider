@@ -1,100 +1,55 @@
-class Converter {
-  constructor(startCurrency = 'USD', endCurrency = 'RUB') {
-    this.startCurrency = localStorage.getItem('startCurrency') || startCurrency;
-    this.endCurrency = localStorage.getItem('endCurrency') || endCurrency;
+const images = [
+  '../../src/assets/image_1.jpg',
+  '../../src/assets/image_2.jpg',
+  '../../src/assets/image_3.jpeg',
+  '../../src/assets/image_4.jpg',
+  '../../src/assets/image_5.jpg'
+]
 
-    this.lastRequestHour = localStorage.getItem('lastRequestHour') || -1;
+const prevBtn = document.getElementById('prev_button');
+const nextBtn = document.getElementById('next_button');
+const leftImg = document.getElementById('left-image');
+const sliderImg = document.getElementById('slider-image');
+const rightImg = document.getElementById('right-image');
+const pathImg = document.getElementById('path-img');
+const indexImg = document.getElementById('index-img');
 
-    this.data = JSON.parse(localStorage.getItem('data')) || [];
+let currentIndex = 0;
+
+function updateSlider() {
+  const prevIndex = (currentIndex - 1 + images.length) % images.length;
+  const nextIndex = (currentIndex + 1) % images.length;
+  indexImg.innerText = currentIndex;
+  pathImg.innerText = images[currentIndex];
+  
+  switch (currentIndex) {
+    case 0:
+      leftImg.style.display = 'none';
+      prevBtn.classList.add('inactive');
+      break;
+    case images.length - 1:
+      rightImg.style.display = 'none';
+      nextBtn.classList.add('inactive');
+      break;
+    default:
+      leftImg.style.display = 'block';
+      prevBtn.classList.remove('inactive');
+      rightImg.style.display = 'block';
+      nextBtn.classList.remove('inactive');
+      break;
   }
 
-  async getData() {
-
-    const currentHour = new Date().getHours();
-    if (currentHour !== +this.lastRequestHour) {
-      const { data: res } = await axios.get('https://www.cbr-xml-daily.ru/daily_json.js');
-      this.data = res;
-      this.lastRequestHour = currentHour;
-
-      localStorage.setItem('lastRequestHour', this.lastRequestHour.toString());
-      localStorage.setItem('data', JSON.stringify(this.data));
-
-
-      console.log('Data was gotten!')
-    } else {
-      console.log('Data was already gotten!')
-    }
-
-    return this.data;
-  }
-
-  get StartCurrency() {
-    return this.startCurrency;
-  }
-
-  set StartCurrency(value) {
-    localStorage.setItem('startCurrency', value);
-    this.startCurrency = value;
-  }
-
-  get EndCurrency() {
-    return this.endCurrency;
-  }
-
-  set EndCurrency(value) {
-    localStorage.setItem('endCurrency', value);
-    this.endCurrency = value;
-  }
+  leftImg.src = images[prevIndex];
+  sliderImg.src = images[currentIndex];
+  rightImg.src = images[nextIndex];
 }
 
-const convert = new Converter(),
-  selects = document.querySelectorAll('.select_my_currency'),
-  inputs = document.querySelectorAll('.quantity_money');
+function changeSlide(direction) {
+  currentIndex = (currentIndex + direction + images.length) % images.length;
+  updateSlider();
+}
 
+prevBtn.addEventListener('click', () => changeSlide(-1));
+nextBtn.addEventListener('click', () => changeSlide(1));
 
-console.log(await convert.getData());
-
-selects.forEach((element, index) => {
-  element.addEventListener('change', async (e) => {
-    switch (index) {
-      case 0:
-        convert.StartCurrency = e.target.value;
-
-        const data = await convert.getData();
-        const rate = data?.Valute[convert.startCurrency]?.Value / data?.Valute[convert.startCurrency]?.Nominal;
-
-        inputs[index + 1].value = (+inputs[index].value * rate).toFixed(2);
-        break;
-      case 1:
-        convert.EndCurrency = e.target.value;
-        break;
-      default:
-        alert('Invalid drop select node!')
-    }
-
-    console.log('Start: ' + convert.StartCurrency)
-    console.log('End: ' + convert.EndCurrency)
-  })
-});
-
-
-inputs.forEach((element, index) => {
-  element.addEventListener('input', async (e) => {
-    const data = await convert.getData();
-    const rate = data?.Valute[convert.startCurrency]?.Value / data?.Valute[convert.startCurrency]?.Nominal;
-    switch (index) {
-      case 0:
-        inputs[index + 1].value = (+element.value * rate).toFixed(2);
-        break;
-      case 1:
-        inputs[index - 1].value = (+element.value / rate).toFixed(2);
-        break;
-      default:
-        alert('Invalid drop select node!')
-    }
-
-    console.log('Start: ' + convert.StartCurrency)
-    console.log('End: ' + convert.EndCurrency)
-  })
-});
-
+updateSlider();

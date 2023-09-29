@@ -1,90 +1,72 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@500&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@500&display=swap");
-.currency_converter {
-  width: 400px;
-  height: 350px;
-  background-color: white;
-  border-radius: 15px;
-  margin: 80px auto 0 auto;
-  padding: 20px;
-}
-.currency_converter > .converter_title {
-  font-size: 24px;
-  font-weight: 500;
-  font-family: "Nunito", sans-serif;
-  line-height: 24px;
+input::-webkit-inner-spin-button,
+input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
   margin: 0;
-  color: #041025;
 }
-.currency_converter > .first_currency {
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+input {
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.slider {
+  width: 1800px;
+  height: 700px;
+  margin: 0 auto;
+  margin-top: 5%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
-  height: 120px;
-  align-items: center;
-  border-radius: 15px;
-  background-color: #F5FAFC;
-  margin-top: 30px;
 }
-.currency_converter > .first_currency > .first_currency_block {
-  padding: 10px;
-  height: 80%;
-}
-.currency_converter > .first_currency > .first_currency_block > .label_select_currency {
-  font-size: 18px;
-  font-weight: 400;
-  font-family: "Nunito", sans-serif;
-  line-height: 14px;
-  margin: 0;
-  padding: 5px;
-  color: #5282a1;
-}
-.currency_converter > .first_currency > .first_currency_block > .quantity_money {
-  width: 250px;
-  height: 30px;
-  font-size: 28px;
-  font-weight: 600;
-  font-family: "Nunito", sans-serif;
-  line-height: 28px;
-  background-color: #F5FAFC;
+.slider > button {
+  width: 50px;
+  height: 50px;
+  background-color: #000000;
+  color: white;
+  font-size: 35px;
   border: none;
-  color: #5282a1;
-  padding-top: 20px;
-  display: block;
+  border-radius: 30px;
 }
-.currency_converter > .first_currency > .first_currency_block > .quantity_money::-webkit-input-placeholder {
-  color: #5282a1;
+.slider > button.inactive {
+  pointer-events: none;
+  opacity: 0;
 }
-.currency_converter > .first_currency > .first_currency_block2 > .select_my_currency {
-  -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
-  width: 80px;
-  height: 20px;
-  padding-right: 20px;
+.slider > .middle_image > h1, .slider > .middle_image h2 {
   text-align: center;
-  font-size: 18px;
+  font-size: 36px;
   font-weight: 400;
   font-family: "Nunito", sans-serif;
-  line-height: 18px;
-  border: none;
-  background-color: #F5FAFC;
-  color: #5282a1;
+  line-height: 16px;
 }
-.currency_converter > .first_currency > .first_currency_block2 > .select_my_currency > option {
-  font-size: 14px;
-  font-weight: 400;
-  font-family: "Nunito", sans-serif;
-  line-height: 14px;
-  background-color: #F5FAFC;
-  border: none;
+.slider > .middle_image > img {
+  width: 800px;
+  height: 500px;
+}
+.slider > img {
+  width: 20%;
 }
 
-select:active, select:focus, input:active, input:focus {
-  border: none;
-  outline: none;
-  border: transparent;
+input::-webkit-inner-spin-button,
+input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+input {
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 body {
