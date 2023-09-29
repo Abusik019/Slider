@@ -51,6 +51,7 @@ input {
 }
 .slider > img {
   width: 20%;
+  filter: blur(5px);
 }
 
 input::-webkit-inner-spin-button,

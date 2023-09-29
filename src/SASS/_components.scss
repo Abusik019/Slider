@@ -5,6 +5,7 @@
     margin: 0 auto;
     margin-top: 5%;
     @include flex(space-between);
+ 
 
     &>button{
         @include size(50px, 50px);
@@ -35,6 +36,7 @@
 
     &>img{
         width: 20%;
+        filter: blur(5px);
     }
 
 }
