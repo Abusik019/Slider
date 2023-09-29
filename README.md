@@ -1,11 +1,11 @@
 ﻿# Hello everyone👋, now I will describe my slider to you.
 ---
 
-#Image Slider
+# Image Slider
 
 A simple image slider with previous, current, and next images. This slider displays three images at a time and allows navigation between them using "Previous" and "Next" buttons.
 
-##Features
+## Features
 
 - Displays a set of images in a slider format.
 - Shows the previous, current, and next images.
